@@ -1,12 +1,13 @@
 # progomatter
 
 ![example usage video, copying files](examples/loading-filesv1.gif)
-![example video, uploading](examples/upload-examplev1.gif)
 
 This app is for accelerating prototyping development with AI. It allows anyone to quickly create app prototypes using their preferred LLM API.
 Currently a minimum viable product. It will take a complex project with many files, and only extract the ones you want to update with your preferred LLM, no more digging.
 
 In the future, all the copy and pasting won't be necessary, and you can handle the full changes with a simple but powerful git-like interface for applying feature changes without leaving progomatter. Just input your LLM API credentials and get to work.
+
+![example video, uploading](examples/upload-examplev1.gif)
 
 ## Usage
 
