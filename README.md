@@ -3,6 +3,9 @@
 ![example usage video, copying files](examples/loading-filesv1.gif)
 
 This app is for accelerating prototyping development with AI. It allows anyone to quickly create app prototypes using their preferred LLM API.
+Currently a minimum viable product. It will take a complex project with many files, and only extract the ones you want to update with your preferred LLM, no more digging.
+
+In the future, all the copy and pasting won't be necessary, and you can handle the full changes with a simple but powerful git-like interface for applying feature changes without leaving progomatter. Just input your LLM API credentials and get to work.
 
 ## Usage
 
@@ -10,6 +13,8 @@ This app is for accelerating prototyping development with AI. It allows anyone t
 - Run the GUI, navigate your project folder, and extract the files. Progomatter will recursively extract all files in the folder and place them in a single temporary folder.
 - Drag the contents into the LLM chat window. (For example, Claude projects).
 - Refresh to view new files with the refresh button. It will perform a copy operation and display the new files.
+- Delete the old files in the projects folder, drag in the new ones, ask a question with full context for modified code.
+- Profit?
 
 ## TODO
 
