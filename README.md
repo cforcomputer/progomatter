@@ -14,13 +14,14 @@ This app is for accelerating prototyping development with AI. It allows anyone t
 ## TODO
 
 ![functionality1](/examples/example2.png)
-[ ] Add ability to delete files that already exist, retrieve the new version with the claude API, and replace the older version of the file with the new version.
-[ ] Add git-like functionality for changes
-[ ] Add "commits" dependent to each feature session. You can look back and see the changes over time in a simplified way, similar to git.
-[ ] Add project files collapsible tree with line counts and changes.
-[ ] Add "generated changes" box with accept commit and decline commit.
-[ ] Add automatic check if there is a significant line count reduction.
-[ ] Add a counter for line number changes
-[ ] Add feature session tracking, you can keep working changes in folders that show up as "features" in the GUI.
-[ ] Low token usage optimization. Rebuild with the new version after each accepted "commit", forcing a full readthrough for each question.
-[ ] More
+
+- [ ] Add ability to delete files that already exist, retrieve the new version with the claude API, and replace the older version of the file with the new version.
+- [ ] Add git-like functionality for changes
+- [ ] Add "commits" dependent to each feature session. You can look back and see the changes over time in a simplified way, similar to git.
+- [ ] Add project files collapsible tree with line counts and changes.
+- [ ] Add "generated changes" box with accept commit and decline commit.
+- [ ] Add automatic check if there is a significant line count reduction.
+- [ ] Add a counter for line number changes
+- [ ] Add feature session tracking, you can keep working changes in folders that show up as "features" in the GUI.
+- [ ] Low token usage optimization. Rebuild with the new version after each accepted "commit", forcing a full readthrough for each question.
+- [ ] More
