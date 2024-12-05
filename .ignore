@@ -1,0 +1,6 @@
+.env
+node_modules/
+public/
+example_responses
+package-lock.json
+*.svg
