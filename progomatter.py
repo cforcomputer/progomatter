@@ -14,9 +14,10 @@ class Progomatter:
         self.root.title("Progomatter")
         self.root.geometry("600x400")
 
-        # Store the source directory and temp directory
+        # Initialize variables
         self.source_dir = None
         self.temp_dir = os.path.join(tempfile.gettempdir(), "progomatter_files")
+        self.progress_var = tk.DoubleVar()
 
         # Create temp directory if it doesn't exist
         os.makedirs(self.temp_dir, exist_ok=True)
@@ -75,35 +76,48 @@ class Progomatter:
                         for line in f
                         if line.strip() and not line.startswith("#")
                     ]
+                self.log_status(f"Found patterns in {filename}: {patterns}")
+            else:
+                self.log_status(f"Warning: {filename} not found in {self.source_dir}")
         except Exception as e:
             self.log_status(f"Error reading {filename}: {str(e)}")
         return patterns
 
-    def should_include_file(self, file_path, include_patterns, ignore_patterns):
-        # Convert to relative path for pattern matching
-        rel_path = os.path.relpath(file_path, self.source_dir)
-        file_name = os.path.basename(file_path)
-
-        # First check if file should be ignored
+    def should_include_file(self, file_name, include_patterns, ignore_patterns):
+        # First check if file should be ignored by name
         for pattern in ignore_patterns:
-            # Check if pattern matches full path or just filename
-            if fnmatch.fnmatch(rel_path, pattern) or fnmatch.fnmatch(
-                file_name, pattern
-            ):
-                return False
-            # Handle directory patterns
-            if pattern.endswith("/") and os.path.dirname(rel_path).startswith(
-                pattern[:-1]
-            ):
+            if not pattern.endswith("/") and fnmatch.fnmatch(file_name, pattern):
+                self.log_status(
+                    f"Ignoring file {file_name} - matches ignore pattern {pattern}"
+                )
                 return False
 
         # Then check if file matches include patterns
         for pattern in include_patterns:
-            if fnmatch.fnmatch(file_name, pattern) or fnmatch.fnmatch(
-                rel_path, pattern
-            ):
+            if fnmatch.fnmatch(file_name, pattern):
                 return True
 
+        return False
+
+    def should_ignore_directory(self, dir_path, ignore_patterns):
+        # Handle directory-specific ignore patterns
+        for pattern in ignore_patterns:
+            # If pattern ends with /, it's a directory pattern
+            if pattern.endswith("/"):
+                pattern = pattern[:-1]  # Remove trailing slash for matching
+                if fnmatch.fnmatch(dir_path, pattern) or fnmatch.fnmatch(
+                    os.path.basename(dir_path), pattern
+                ):
+                    self.log_status(
+                        f"Ignoring directory: {dir_path} - matches pattern {pattern}"
+                    )
+                    return True
+            # Also check non-slash patterns against directory names
+            elif fnmatch.fnmatch(os.path.basename(dir_path), pattern):
+                self.log_status(
+                    f"Ignoring directory: {dir_path} - matches pattern {pattern}"
+                )
+                return True
         return False
 
     def refresh_files(self):
@@ -112,6 +126,7 @@ class Progomatter:
             return
 
         self.log_status("Starting refresh process...")
+        self.progress_var.set(0)
 
         # Close existing Explorer window if on Windows
         if os.name == "nt":
@@ -120,7 +135,7 @@ class Progomatter:
                     f'taskkill /F /IM explorer.exe /FI "WINDOWTITLE eq {os.path.basename(self.temp_dir)}*"'
                 )
             except Exception:
-                pass  # Ignore if no window exists
+                pass
 
         # Clear temp directory
         for file in os.listdir(self.temp_dir):
@@ -139,28 +154,49 @@ class Progomatter:
             self.log_status("Warning: No include patterns found in .include file")
             return
 
-        # Copy matching files
-        copied_count = 0
+        # First count total files to process for progress bar
+        total_files = 0
+        matching_files = []
         for root, dirs, files in os.walk(self.source_dir):
+            # Check if current directory should be ignored
+            rel_path = os.path.relpath(root, self.source_dir)
+
             # Remove directories that match ignore patterns
             dirs[:] = [
                 d
                 for d in dirs
-                if not any(fnmatch.fnmatch(d, p) for p in ignore_patterns)
+                if not self.should_ignore_directory(
+                    os.path.join(rel_path, d), ignore_patterns
+                )
             ]
 
             for file in files:
-                src_path = os.path.join(root, file)
-                if self.should_include_file(
-                    src_path, include_patterns, ignore_patterns
-                ):
-                    try:
-                        shutil.copy2(src_path, self.temp_dir)
-                        copied_count += 1
-                    except Exception as e:
-                        self.log_status(f"Error copying {file}: {str(e)}")
+                if self.should_include_file(file, include_patterns, ignore_patterns):
+                    total_files += 1
+                    matching_files.append((root, file))
+
+        if total_files == 0:
+            self.log_status("No matching files found")
+            return
+
+        # Copy matching files with progress updates
+        copied_count = 0
+        for root, file in matching_files:
+            src_path = os.path.join(root, file)
+            try:
+                shutil.copy2(src_path, self.temp_dir)
+                copied_count += 1
+                # Update progress bar
+                progress = (copied_count / total_files) * 100
+                self.progress_var.set(progress)
+                self.root.update_idletasks()
+            except Exception as e:
+                self.log_status(f"Error copying {file}: {str(e)}")
 
         self.log_status(f"Refresh complete. Copied {copied_count} files.")
+
+        # Reset progress bar
+        self.progress_var.set(100)
 
         # Automatically open the folder after refresh
         self.open_temp_folder()
