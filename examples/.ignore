@@ -4,3 +4,4 @@ public/
 example_responses
 package-lock.json
 *.svg
+.git/
