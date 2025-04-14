@@ -1,6 +1,6 @@
 # progomatter
 
-![example usage video, copying files](examples/loading-filesv1.gif)
+![example picture gui](examples/example_pic.png)
 
 This app is for accelerating prototyping development with AI. It allows anyone to quickly copy and format all the project files from a program that contains nested folders. It also allows you to convert the filetypes to a generic .txt file for use with LLMs that do not support less common filetypes, for example Gemini not accepting .js or .svelte files even though they are plain text. It can also combine all your files into one megafile complete with filename titles to make it easier to copy and paste, and delete in things like Claude projects.
 
