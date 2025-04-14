@@ -2,33 +2,18 @@
 
 ![example usage video, copying files](examples/loading-filesv1.gif)
 
-This app is for accelerating prototyping development with AI. It allows anyone to quickly create app prototypes using their preferred LLM API.
-Currently a minimum viable product. It will take a complex project with many files, and only extract the ones you want to update with your preferred LLM, no more digging.
-
-In the future, all the copy and pasting won't be necessary, and you can handle the full changes with a simple but powerful git-like interface for applying feature changes without leaving progomatter. Just input your LLM API credentials and get to work.
-
-![example video, uploading](examples/upload-examplev1.gif)
+This app is for accelerating prototyping development with AI. It allows anyone to quickly copy and format all the project files from a program that contains nested folders. It also allows you to convert the filetypes to a generic .txt file for use with LLMs that do not support less common filetypes, for example Gemini not accepting .js or .svelte files even though they are plain text. It can also combine all your files into one megafile complete with filename titles to make it easier to copy and paste, and delete in things like Claude projects.
 
 ## Usage
 
-- Create a `.ignore` and `.include` file in the root directory of your project. Progomatter will extract all files from the folder matching the file names or types in the `.include` file. Files and folders in the `.ignore` will be ignored, following the same syntax as `.gitignore.`.
-- Run the GUI, navigate your project folder, and extract the files. Progomatter will recursively extract all files in the folder and place them in a single temporary folder.
-- Drag the contents into the LLM chat window. (For example, Claude projects).
-- Refresh to view new files with the refresh button. It will perform a copy operation and display the new files.
-- Delete the old files in the projects folder, drag in the new ones, ask a question with full context for modified code.
-- Profit?
+First
+**Run:** ```pip install -r requirements.txt``` in the project folder.
 
-## TODO
-
-![functionality1](/examples/example2.png)
-
-- [ ] Add ability to delete files that already exist, retrieve the new version with the claude API, and replace the older version of the file with the new version.
-- [ ] Add git-like functionality for changes
-- [ ] Add "commits" dependent to each feature session. You can look back and see the changes over time in a simplified way, similar to git.
-- [ ] Add project files collapsible tree with line counts and changes.
-- [ ] Add "generated changes" box with accept commit and decline commit.
-- [ ] Add automatic check if there is a significant line count reduction.
-- [ ] Add a counter for line number changes
-- [ ] Add feature session tracking, you can keep working changes in folders that show up as "features" in the GUI.
-- [ ] Low token usage optimization. Rebuild with the new version after each accepted "commit", forcing a full readthrough for each question.
-- [ ] More
+- Clone the program and run progomatter.py after installing the packages in requirements.txt. `python .\progomatter.py`
+- Progomatter will automatically create a `.include` file in your selected project folder. You can edit this in the interface. If `.include` contains text, it will only include the filetypes that you specify in the file (following the same formatting as a .gitignore file).
+- Progomatter will exclude anything in the `.gitignore` file if present.
+- Open project folders like you would in vscode
+- You can pin the window on top of all the other windows and set your desired transparency.
+- Auto refresh is enabled by default and will watch for changes in any of the files, automatically updating them in the temp folder if you save changes.
+- You can create a `prompt.txt` file by filling in the prompt rules textbox. The LLM might listen to this, it might not... Sometimes it helps.
+- Drag and drop from temp folder into your LLM chat, that's it.

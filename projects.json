@@ -1,7 +1,7 @@
 [
     {
-        "project_name": "itemfinder svelte app",
-        "directory": "C:/Users/p.obrien/Music/dev/alteryx-live-job-feed",
-        "prompt_rules": "Display all of the code if asked to display all of the code. Always make sure to include the path url at the top of the code in a comment, but in a place where it is actually recognized as a comment. Maintain the same order of methods in the code. Do not hallucinate. Keep other functions and structure the same while only adjusting what is necessary to implement the feature. Always show entire methods if modifying a part of one, this way we can easily copy and paste the entire method."
+        "project_name": "Zcamp",
+        "directory": "C:\\Users\\patjo\\Desktop\\zcamp",
+        "prompt_rules": ""
     }
 ]
