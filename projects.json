@@ -1,7 +1,12 @@
 [
     {
         "project_name": "Zcamp",
-        "directory": "C:\\Users\\patjo\\Desktop\\zcamp",
+        "directory": "D:\\dev\\zcamp",
+        "prompt_rules": ""
+    },
+    {
+        "project_name": "itemfinder",
+        "directory": "D:\\dev\\itemfinder-webapp",
         "prompt_rules": ""
     }
 ]
