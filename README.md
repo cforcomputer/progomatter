@@ -6,10 +6,9 @@ This app is for accelerating prototyping development with AI. It allows anyone t
 
 ## Usage
 
-First
-**Run:** ```pip install -r requirements.txt``` in the project folder.
+You can run the application by running the `python .\progomatter.py` or by running the portable .exe file in the latest release.
 
-- Clone the program and run progomatter.py after installing the packages in requirements.txt. `python .\progomatter.py`
+- Clone the program and run progomatter.py after installing the required packages (if necessary). `python .\progomatter.py`
 - Progomatter will automatically create a `.include` file in your selected project folder. You can edit this in the interface. If `.include` contains text, it will only include the filetypes that you specify in the file (following the same formatting as a .gitignore file).
 - Progomatter will exclude anything in the `.gitignore` file if present.
 - Open project folders like you would in vscode
@@ -17,3 +16,9 @@ First
 - Auto refresh is enabled by default and will watch for changes in any of the files, automatically updating them in the temp folder if you save changes.
 - You can create a `prompt.txt` file by filling in the prompt rules textbox. The LLM might listen to this, it might not... Sometimes it helps.
 - Drag and drop from temp folder into your LLM chat, that's it.
+
+## Compiling the exe
+
+- Install the pyinstaller package `pip install pyinstaller`
+- Run `pyinstaller -F -w progomatter.py`
+  
