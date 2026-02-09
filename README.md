@@ -17,3 +17,12 @@ First
 - Auto refresh is enabled by default and will watch for changes in any of the files, automatically updating them in the temp folder if you save changes.
 - You can create a `prompt.txt` file by filling in the prompt rules textbox. The LLM might listen to this, it might not... Sometimes it helps.
 - Drag and drop from temp folder into your LLM chat, that's it.
+
+## Development
+
+Build: `pyinstaller --windowed --name="Progomatter" --onefile .\progomatter.py`
+
+## Think of LLM contexts as shapes
+
+You have to form the shape, without context the form collapses. The context needs to be precise and clear, and the context itself needs to be updated between conversations, leaving behind the key points that allowed the project to move forwards. These "learned" truths set the shape.
+
